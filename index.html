@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html class="dark scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DevPortfolio - Modern Developer Portfolio</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2badee",
+                        "primary-hover": "#2390c7",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111c22",
+                        "surface-dark": "#1a262d",
+                        "surface-darker": "#0d1419",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "3xl": "1.5rem", "full": "9999px"},
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'progress': 'progress 1.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        progress: {
+                            '0%': { width: '0%' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        .swiper-pagination-bullet {
+            @apply bg-slate-600 opacity-50 transition-all duration-300;
+        }
+        .swiper-pagination-bullet-active {
+            @apply bg-primary opacity-100 w-6 rounded-full;
+        }
+        .swiper-button-next, .swiper-button-prev {
+            @apply text-primary bg-surface-dark/80 backdrop-blur-sm p-8 rounded-full h-12 w-12 flex items-center justify-center transition-all hover:bg-primary hover:text-white after:text-xl hidden md:flex border border-slate-700/50 shadow-lg z-50;
+        }
+        .swiper-button-disabled {
+            @apply opacity-30 cursor-not-allowed hover:bg-surface-dark hover:text-primary;
+        }
+        .swiper-slide {
+            @apply transition-all duration-500 ease-in-out opacity-70 scale-90 blur-[1px];
+        }
+        .swiper-slide-active {
+            @apply opacity-100 scale-110 blur-0 z-20;
+        }
+        .swiper-slide-active .project-card {
+            @apply shadow-[0_0_30px_-5px_rgba(43,173,238,0.4)] border-primary/40;
+        }
+        .swiper-slide-active:hover {
+            @apply -translate-y-2;
+        }
+        .swiper-wrapper {
+            @apply py-12;
+        }
+        .glass-card {
+            @apply bg-surface-dark/60 backdrop-blur-md border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.4)];
+        }
+        .mesh-gradient {
+            background-image: radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+                              radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
+                              radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
+        }
+        .text-shadow-raised {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display selection:bg-primary selection:text-white overflow-x-hidden">
+<nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-white/5 bg-background-dark/80 backdrop-blur-md">
+<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+<a class="flex items-center gap-2 text-white group" href="#">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined font-bold">code</span>
+</div>
+<h2 class="text-xl font-bold tracking-tight group-hover:text-primary transition-colors">DevPortfolio</h2>
+</a>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#home">Home</a>
+<a class="text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#about">About</a>
+<a class="text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#skills">Skills</a>
+<a class="text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#projects">Projects</a>
+<a class="text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#contact">Contact</a>
+<a class="flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-6 bg-primary hover:bg-primary-hover text-background-dark text-sm font-bold transition-all transform hover:scale-105" href="#contact">
+                Hire Me
+            </a>
+</div>
+<button class="md:hidden text-white p-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</nav>
+<section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-background-dark mesh-gradient" id="home">
+<div class="absolute inset-0 z-0 opacity-40">
+<div class="absolute top-20 left-10 w-72 h-72 bg-primary/20 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px]"></div>
+</div>
+<div class="container mx-auto px-6 relative z-10">
+<div class="flex flex-col items-start max-w-4xl">
+<span class="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-6 border border-primary/20 backdrop-blur-sm">
+                Available for Freelance Projects
+            </span>
+<h1 class="text-5xl md:text-7xl font-black leading-tight tracking-tight text-white mb-6 text-shadow-raised">
+                Merhaba, Ben <span class="text-primary">Alex Doe</span>
+</h1>
+<div class="text-2xl md:text-3xl text-slate-400 font-light mb-8 flex items-center gap-2">
+                I am a <span class="font-bold text-white relative">
+                    Full Stack Developer
+                    <span class="absolute -right-4 top-1 w-[2px] h-8 bg-primary animate-pulse"></span>
+</span>
+</div>
+<p class="text-lg text-slate-400 max-w-2xl mb-10 leading-relaxed">
+                Building scalable web applications and seamless digital experiences. Specializing in modern backend architecture and reactive frontend interfaces.
+            </p>
+<div class="flex flex-wrap gap-4">
+<a class="flex h-12 items-center justify-center rounded-lg px-8 bg-primary text-background-dark text-base font-bold transition-transform hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/25" href="#projects">
+                    View Projects
+                </a>
+<a class="flex h-12 items-center justify-center rounded-lg px-8 border border-slate-700 bg-transparent text-white text-base font-bold hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined mr-2 text-sm">download</span>
+                    Download Resume
+                </a>
+</div>
+</div>
+</div>
+<a class="absolute bottom-10 left-1/2 -translate-x-1/2 text-slate-500 hover:text-primary transition-colors animate-bounce" href="#about">
+<span class="material-symbols-outlined text-3xl">keyboard_arrow_down</span>
+</a>
+</section>
+<section class="py-24 relative overflow-hidden bg-surface-darker mesh-gradient" id="about">
+<div class="absolute top-0 left-0 w-full h-full bg-surface-darker/90 z-0"></div>
+<div class="container mx-auto px-6 relative z-10">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div class="relative group animate-float">
+<div class="absolute -inset-4 bg-gradient-to-r from-primary to-purple-600 rounded-3xl blur-2xl opacity-20 group-hover:opacity-40 transition duration-500"></div>
+<div class="relative rounded-3xl overflow-hidden aspect-[4/5] bg-surface-dark border border-white/5 shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
+<div class="w-full h-full bg-cover bg-center" data-alt="Portrait of a developer working on a laptop in a modern office setting" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCApq5QJ3dk2yXgv02ka0TeLSK_MOybPKuE1A8xaUgt1ysuDrSL5Ia7D6BQKsAEjz98NwzfmLJ4oRG2YLtDi631nPL4u4oFuq8tQOn5UtAlS7ePNyOghXEG88twZO-yK4kKxBr1Q7G_KWg9K9bAhx3qSKzxbWO3Er-3BOjaITENJMHl-dTzOy0N-ofj_9EPCaPrId7JrJSvlMKlY735Jub3GOs7HCcUNV_wVwM6mh3Ox8YF4h4_KUYOUce6f7LagqkyGwJbkfMztjRS');"></div>
+</div>
+<div class="absolute -bottom-6 -right-6 glass-card p-6 rounded-2xl flex items-center gap-4 z-20">
+<div class="bg-primary/20 p-3 rounded-xl text-primary backdrop-blur-sm">
+<span class="material-symbols-outlined text-3xl">workspace_premium</span>
+</div>
+<div>
+<p class="text-2xl font-bold text-white">5+</p>
+<p class="text-sm text-slate-300">Years Experience</p>
+</div>
+</div>
+</div>
+<div>
+<h2 class="text-primary text-lg font-bold mb-2 uppercase tracking-wider">About Me</h2>
+<h3 class="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight text-shadow-raised">Crafting Digital Solutions with Passion &amp; Code</h3>
+<p class="text-slate-400 text-lg mb-6 leading-relaxed">
+                    I am a passionate Full Stack Developer with over 5 years of experience in building scalable web applications. My journey started with a curiosity for how things work on the web, which evolved into a career of solving complex problems through code.
+                </p>
+<p class="text-slate-400 text-lg mb-8 leading-relaxed">
+                    I specialize in backend architecture using .NET Core and Node.js, while creating intuitive frontend experiences with React and Tailwind CSS. When I'm not coding, I'm contributing to open source or exploring cloud technologies.
+                </p>
+<div class="glass-card rounded-3xl p-8 border border-white/5">
+<div class="grid grid-cols-2 gap-6">
+<div>
+<h4 class="text-white font-bold mb-1">Name</h4>
+<p class="text-slate-400">Alex Doe</p>
+</div>
+<div>
+<h4 class="text-white font-bold mb-1">Email</h4>
+<p class="text-slate-400">alex.doe@example.com</p>
+</div>
+<div>
+<h4 class="text-white font-bold mb-1">Location</h4>
+<p class="text-slate-400">Istanbul, Turkey</p>
+</div>
+<div>
+<h4 class="text-white font-bold mb-1">Availability</h4>
+<p class="text-green-400 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-green-400 shadow-[0_0_10px_rgba(74,222,128,0.5)]"></span> Open to work
+                            </p>
+</div>
+</div>
+</div>
+<div class="mt-8">
+<a class="text-primary font-bold hover:text-white transition-colors inline-flex items-center gap-2 group" href="#contact">
+                        Let's Talk
+                        <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 bg-background-dark relative" id="skills">
+<div class="absolute top-0 right-0 w-1/3 h-full bg-primary/5 blur-[150px] pointer-events-none"></div>
+<div class="container mx-auto px-6 relative z-10">
+<div class="text-center mb-16">
+<h2 class="text-primary text-lg font-bold mb-2 uppercase tracking-wider">My Skills</h2>
+<h3 class="text-3xl md:text-4xl font-bold text-white text-shadow-raised">Technical Proficiency</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="bg-surface-dark p-8 rounded-3xl border border-slate-800 hover:border-primary/50 transition-all duration-300 group hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)] relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-slate-800 rounded-xl text-blue-400 group-hover:bg-primary group-hover:text-background-dark transition-colors shadow-lg shadow-black/20">
+<span class="material-symbols-outlined text-3xl">code</span>
+</div>
+<span class="text-slate-500 text-sm font-mono font-bold">95%</span>
+</div>
+<h4 class="text-white text-xl font-bold mb-2">Frontend Dev</h4>
+<p class="text-slate-400 text-sm mb-6">React, Tailwind, HTML5, CSS3</p>
+<div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+<div class="bg-primary h-2 rounded-full animate-progress" style="width: 95%"></div>
+</div>
+</div>
+</div>
+<div class="bg-surface-dark p-8 rounded-3xl border border-slate-800 hover:border-primary/50 transition-all duration-300 group hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)] relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-slate-800 rounded-xl text-green-400 group-hover:bg-primary group-hover:text-background-dark transition-colors shadow-lg shadow-black/20">
+<span class="material-symbols-outlined text-3xl">terminal</span>
+</div>
+<span class="text-slate-500 text-sm font-mono font-bold">90%</span>
+</div>
+<h4 class="text-white text-xl font-bold mb-2">Backend Dev</h4>
+<p class="text-slate-400 text-sm mb-6">.NET Core, Node.js, Python</p>
+<div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+<div class="bg-primary h-2 rounded-full animate-progress" style="width: 90%; animation-delay: 0.1s;"></div>
+</div>
+</div>
+</div>
+<div class="bg-surface-dark p-8 rounded-3xl border border-slate-800 hover:border-primary/50 transition-all duration-300 group hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)] relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-slate-800 rounded-xl text-yellow-400 group-hover:bg-primary group-hover:text-background-dark transition-colors shadow-lg shadow-black/20">
+<span class="material-symbols-outlined text-3xl">database</span>
+</div>
+<span class="text-slate-500 text-sm font-mono font-bold">85%</span>
+</div>
+<h4 class="text-white text-xl font-bold mb-2">Database</h4>
+<p class="text-slate-400 text-sm mb-6">SQL Server, PostgreSQL, Mongo</p>
+<div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+<div class="bg-primary h-2 rounded-full animate-progress" style="width: 85%; animation-delay: 0.2s;"></div>
+</div>
+</div>
+</div>
+<div class="bg-surface-dark p-8 rounded-3xl border border-slate-800 hover:border-primary/50 transition-all duration-300 group hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)] relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-slate-800 rounded-xl text-purple-400 group-hover:bg-primary group-hover:text-background-dark transition-colors shadow-lg shadow-black/20">
+<span class="material-symbols-outlined text-3xl">cloud</span>
+</div>
+<span class="text-slate-500 text-sm font-mono font-bold">80%</span>
+</div>
+<h4 class="text-white text-xl font-bold mb-2">DevOps</h4>
+<p class="text-slate-400 text-sm mb-6">Docker, Azure, AWS, CI/CD</p>
+<div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+<div class="bg-primary h-2 rounded-full animate-progress" style="width: 80%; animation-delay: 0.3s;"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 bg-surface-darker mesh-gradient relative" id="projects">
+<div class="absolute top-0 left-0 w-full h-full bg-surface-darker/95 z-0"></div>
+<div class="container mx-auto px-6 relative z-10">
+<div class="flex flex-col md:flex-row justify-between items-end mb-8">
+<div>
+<h2 class="text-primary text-lg font-bold mb-2 uppercase tracking-wider">Portfolio</h2>
+<h3 class="text-3xl md:text-4xl font-bold text-white text-shadow-raised">Recent Projects</h3>
+</div>
+<a class="hidden md:flex text-slate-400 hover:text-white items-center gap-2 mt-4 md:mt-0 transition-colors" href="#">
+                View All Projects <span class="material-symbols-outlined">arrow_forward</span>
+</a>
+</div>
+<div class="swiper mySwiper !pb-16 px-4 md:px-0">
+<div class="swiper-wrapper">
+<div class="swiper-slide h-auto">
+<div class="project-card group h-full flex flex-col rounded-3xl overflow-hidden bg-surface-dark border border-slate-800 transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
+<div class="relative h-56 overflow-hidden">
+<div class="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors z-10"></div>
+<img alt="E-commerce Dashboard Interface" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9dt0xrQo06Kbvtq6X1U3N5Y9YHpUAdUWLwDR5oBlIiCi5NCT0Kw7p5UKAmutM3Tae3262PeYwXY6_Lx0Iupewp0v5ANr7vtOIS9ezBFtMp4cf0LvA5fY4_Q8z1K-c1LSocYapHfZjqjOw5lHs-xBPe8gIX3hP_Ip5QmlEhIQiF7ljr2Bih-NPvaX0-cyhhtJ_FSrfiwfgHI9ENUWjncabmDoci3yjUOJVo2ipTz92R3Rbtbox1DHOeS0UNFgBR3F-lI_y2V7dmBuD"/>
+</div>
+<div class="p-8 flex-1 flex flex-col">
+<div class="flex gap-2 mb-4 flex-wrap">
+<span class="px-3 py-1 bg-slate-800 text-primary text-[11px] font-bold rounded-full border border-slate-700/50 uppercase tracking-wide">React</span>
+<span class="px-3 py-1 bg-slate-800 text-primary text-[11px] font-bold rounded-full border border-slate-700/50 uppercase tracking-wide">Node.js</span>
+</div>
+<h4 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">E-Commerce Analytics</h4>
+<p class="text-slate-400 text-sm mb-6 line-clamp-3 leading-relaxed flex-1">A comprehensive dashboard for tracking sales, user engagement, and inventory management with real-time data visualization using Chart.js.</p>
+<div class="grid grid-cols-2 gap-4 mt-auto">
+<button class="py-2.5 px-4 bg-slate-800 text-white text-xs font-bold rounded-xl hover:bg-slate-700 transition-colors border border-slate-700 hover:border-slate-600 flex items-center justify-center gap-2">
+                                    Details
+                                </button>
+<a class="py-2.5 px-4 bg-primary text-background-dark text-xs font-bold rounded-xl hover:bg-primary-hover hover:scale-105 transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2 group/btn" href="#" target="_blank">
+                                    Projeye Git
+                                    <span class="material-symbols-outlined text-sm group-hover/btn:translate-x-0.5 transition-transform">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<div class="swiper-slide h-auto">
+<div class="project-card group h-full flex flex-col rounded-3xl overflow-hidden bg-surface-dark border border-slate-800 transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
+<div class="relative h-56 overflow-hidden">
+<div class="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors z-10"></div>
+<img alt="Mobile Banking App Mockup" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3YaLf-17rwJ64QyhR8zsz3DE7VvPlNMLR6yXqmtZRTgg6HAQmsdhEgfkQyAYrpy3gygZAiOPwODaGL48S4ZI0TTlKToP_jKil45PTFyJUQMVg1lWXe89hd91LXRTsomFZmK9os2B7f7llnlEufibp2jVS94gDrTYsZW6y_wGP179lvKC2knkBIT_tK1k7PGj3ZGfIsqAnVB4L9wbKqxSWxN4-fTB7pIs4hGP515xTkL0hUE97iLzWR6eHAK18N7jG9t6fd9jEaHqt"/>
+</div>
+<div class="p-8 flex-1 flex flex-col">
+<div class="flex gap-2 mb-4 flex-wrap">
+<span class="px-3 py-1 bg-slate-800 text-primary text-[11px] font-bold rounded-full border border-slate-700/50 uppercase tracking-wide">Flutter</span>
+<span class="px-3 py-1 bg-slate-800 text-primary text-[11px] font-bold rounded-full border border-slate-700/50 uppercase tracking-wide">Firebase</span>
+</div>
+<h4 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">FinTech Mobile App</h4>
+<p class="text-slate-400 text-sm mb-6 line-clamp-3 leading-relaxed flex-1">Secure mobile banking application allowing users to transfer funds, pay bills, and manage investments on the go with biometric security.</p>
+<div class="grid grid-cols-2 gap-4 mt-auto">
+<button class="py-2.5 px-4 bg-slate-800 text-white text-xs font-bold rounded-xl hover:bg-slate-700 transition-colors border border-slate-700 hover:border-slate-600 flex items-center justify-center gap-2">
+                                    Details
+                                </button>
+<a class="py-2.5 px-4 bg-primary text-background-dark text-xs font-bold rounded-xl hover:bg-primary-hover hover:scale-105 transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2 group/btn" href="#" target="_blank">
+                                    Projeye Git
+                                    <span class="material-symbols-outlined text-sm group-hover/btn:translate-x-0.5 transition-transform">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<div class="swiper-slide h-auto">
+<div class="project-card group h-full flex flex-col rounded-3xl overflow-hidden bg-surface-dark border border-slate-800 transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
+<div class="relative h-56 overflow-hidden">
+<div class="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors z-10"></div>
+<img alt="Healthcare Portal Dashboard" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKKzUJnsebZS8VMgGLVYH373GihQy-WfpSTKk8Ggb8xXbBewcHzuohCe_wEtUmdAHeSfViTsHH1sAMZx43R_Q49At0uVjCmLU7N-sBaV5wR3hAj_Z7x6G0HjhT7K8Z8f0yKZ2urIowY0-N79tNFXDLaMny-VSoDb4IOJPiIPgwy99Dgf8Amd1Pb97deQGUT3kg5JeraxlU5hlswE0MJJKL28_fhHmfGD_zp0nCJt5kUVgL4W8wcoSgh1WgRX_zQeTuEY9Q76W7QrGq"/>
+</div>
+<div class="p-8 flex-1 flex flex-col">
+<div class="flex gap-2 mb-4 flex-wrap">
+<span class="px-3 py-1 bg-slate-800 text-primary text-[11px] font-bold rounded-full border border-slate-700/50 uppercase tracking-wide">.NET Core</span>
+<span class="px-3 py-1 bg-slate-800 text-primary text-[11px] font-bold rounded-full border border-slate-700/50 uppercase tracking-wide">Angular</span>
+</div>
+<h4 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">HealthCare Portal</h4>
+<p class="text-slate-400 text-sm mb-6 line-clamp-3 leading-relaxed flex-1">A secure patient management system for clinics, featuring appointment booking, medical history tracking, and telemedicine integration.</p>
+<div class="grid grid-cols-2 gap-4 mt-auto">
+<button class="py-2.5 px-4 bg-slate-800 text-white text-xs font-bold rounded-xl hover:bg-slate-700 transition-colors border border-slate-700 hover:border-slate-600 flex items-center justify-center gap-2">
+                                    Details
+                                </button>
+<a class="py-2.5 px-4 bg-primary text-background-dark text-xs font-bold rounded-xl hover:bg-primary-hover hover:scale-105 transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2 group/btn" href="#" target="_blank">
+                                    Projeye Git
+                                    <span class="material-symbols-outlined text-sm group-hover/btn:translate-x-0.5 transition-transform">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<div class="swiper-slide h-auto">
+<div class="project-card group h-full flex flex-col rounded-3xl overflow-hidden bg-surface-dark border border-slate-800 transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
+<div class="relative h-56 overflow-hidden">
+<div class="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors z-10"></div>
+<img alt="Crypto Exchange Dashboard" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKgV7iRYyTCFR9fM7_RdDvMR47y4gmypOAbYLh4RRjN8Sf_pWyRQo_72vjRtFIpRE-w3ubtn6ePb2qF8-6YFayU5MZznOQDuMz3FvlCh4m696yX_otH91fTBiWS_-AYgWufSJYPdRBaOXxSIBVVmH99W8-RaiQ-Hamrh9WuxjWQEiHG9GBFtFvFomdiSfyhPO6eQU32P9WJT3DcL_2GxJ2fI6M0NQerk1ZE5f2U329sh-v2sZM2_oSnkn8AjZYa2E2kKqCT1sGACDy"/>
+</div>
+<div class="p-8 flex-1 flex flex-col">
+<div class="flex gap-2 mb-4 flex-wrap">
+<span class="px-3 py-1 bg-slate-800 text-primary text-[11px] font-bold rounded-full border border-slate-700/50 uppercase tracking-wide">Next.js</span>
+<span class="px-3 py-1 bg-slate-800 text-primary text-[11px] font-bold rounded-full border border-slate-700/50 uppercase tracking-wide">Solidity</span>
+</div>
+<h4 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">DeFi Exchange</h4>
+<p class="text-slate-400 text-sm mb-6 line-clamp-3 leading-relaxed flex-1">Decentralized finance dashboard for crypto trading, featuring live price feeds via WebSocket and wallet integration.</p>
+<div class="grid grid-cols-2 gap-4 mt-auto">
+<button class="py-2.5 px-4 bg-slate-800 text-white text-xs font-bold rounded-xl hover:bg-slate-700 transition-colors border border-slate-700 hover:border-slate-600 flex items-center justify-center gap-2">
+                                    Details
+                                </button>
+<a class="py-2.5 px-4 bg-primary text-background-dark text-xs font-bold rounded-xl hover:bg-primary-hover hover:scale-105 transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2 group/btn" href="#" target="_blank">
+                                    Projeye Git
+                                    <span class="material-symbols-outlined text-sm group-hover/btn:translate-x-0.5 transition-transform">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<div class="swiper-slide h-auto">
+<div class="project-card group h-full flex flex-col rounded-3xl overflow-hidden bg-surface-dark border border-slate-800 transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
+<div class="relative h-56 overflow-hidden">
+<div class="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors z-10"></div>
+<img alt="SaaS Marketing Platform" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9dt0xrQo06Kbvtq6X1U3N5Y9YHpUAdUWLwDR5oBlIiCi5NCT0Kw7p5UKAmutM3Tae3262PeYwXY6_Lx0Iupewp0v5ANr7vtOIS9ezBFtMp4cf0LvA5fY4_Q8z1K-c1LSocYapHfZjqjOw5lHs-xBPe8gIX3hP_Ip5QmlEhIQiF7ljr2Bih-NPvaX0-cyhhtJ_FSrfiwfgHI9ENUWjncabmDoci3yjUOJVo2ipTz92R3Rbtbox1DHOeS0UNFgBR3F-lI_y2V7dmBuD"/>
+</div>
+<div class="p-8 flex-1 flex flex-col">
+<div class="flex gap-2 mb-4 flex-wrap">
+<span class="px-3 py-1 bg-slate-800 text-primary text-[11px] font-bold rounded-full border border-slate-700/50 uppercase tracking-wide">Vue.js</span>
+<span class="px-3 py-1 bg-slate-800 text-primary text-[11px] font-bold rounded-full border border-slate-700/50 uppercase tracking-wide">Laravel</span>
+</div>
+<h4 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">Marketing SaaS</h4>
+<p class="text-slate-400 text-sm mb-6 line-clamp-3 leading-relaxed flex-1">All-in-one marketing automation platform that helps businesses scale their outreach campaigns with AI-driven analytics.</p>
+<div class="grid grid-cols-2 gap-4 mt-auto">
+<button class="py-2.5 px-4 bg-slate-800 text-white text-xs font-bold rounded-xl hover:bg-slate-700 transition-colors border border-slate-700 hover:border-slate-600 flex items-center justify-center gap-2">
+                                    Details
+                                </button>
+<a class="py-2.5 px-4 bg-primary text-background-dark text-xs font-bold rounded-xl hover:bg-primary-hover hover:scale-105 transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2 group/btn" href="#" target="_blank">
+                                    Projeye Git
+                                    <span class="material-symbols-outlined text-sm group-hover/btn:translate-x-0.5 transition-transform">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="swiper-pagination !bottom-0"></div>
+<div class="swiper-button-next"></div>
+<div class="swiper-button-prev"></div>
+</div>
+<div class="mt-8 text-center md:hidden">
+<a class="text-slate-400 hover:text-white inline-flex items-center gap-2 transition-colors" href="#">
+                View All Projects <span class="material-symbols-outlined">arrow_forward</span>
+</a>
+</div>
+</div>
+</section>
+<section class="py-24 bg-background-dark relative" id="contact">
+<div class="container mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-primary text-lg font-bold mb-2 uppercase tracking-wider">Get In Touch</h2>
+<h3 class="text-3xl md:text-4xl font-bold text-white text-shadow-raised">Let's Work Together</h3>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+<div class="flex flex-col justify-center">
+<div class="mb-10">
+<h4 class="text-2xl font-bold text-white mb-4">Have a project in mind?</h4>
+<p class="text-slate-400 text-lg">
+                        I'm currently available for freelance work and open to full-time opportunities. If you have a project that needs some creative injection, let's chat.
+                    </p>
+</div>
+<div class="space-y-6">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-xl bg-surface-dark flex items-center justify-center text-primary border border-slate-800 shadow-lg">
+<span class="material-symbols-outlined">mail</span>
+</div>
+<div>
+<p class="text-sm text-slate-500 font-semibold uppercase">Email Me</p>
+<a class="text-white text-lg font-medium hover:text-primary transition-colors" href="mailto:hello@devportfolio.com">hello@devportfolio.com</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-xl bg-surface-dark flex items-center justify-center text-primary border border-slate-800 shadow-lg">
+<span class="material-symbols-outlined">call</span>
+</div>
+<div>
+<p class="text-sm text-slate-500 font-semibold uppercase">Call Me</p>
+<a class="text-white text-lg font-medium hover:text-primary transition-colors" href="tel:+905551234567">+90 555 123 45 67</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-xl bg-surface-dark flex items-center justify-center text-primary border border-slate-800 shadow-lg">
+<span class="material-symbols-outlined">share</span>
+</div>
+<div>
+<p class="text-sm text-slate-500 font-semibold uppercase">Follow Me</p>
+<div class="flex gap-4 mt-1">
+<a class="text-slate-400 hover:text-white transition-colors" href="#">LinkedIn</a>
+<span class="text-slate-700">•</span>
+<a class="text-slate-400 hover:text-white transition-colors" href="#">GitHub</a>
+<span class="text-slate-700">•</span>
+<a class="text-slate-400 hover:text-white transition-colors" href="#">Twitter</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-dark p-8 rounded-3xl border border-slate-800 shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="relative">
+<input class="peer w-full bg-background-dark border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-transparent focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-inner" id="name" placeholder="Name" type="text"/>
+<label class="absolute left-4 -top-2.5 bg-background-dark px-1 text-sm text-slate-400 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-slate-500 peer-focus:-top-2.5 peer-focus:text-primary" for="name">Your Name</label>
+</div>
+<div class="relative">
+<input class="peer w-full bg-background-dark border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-transparent focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-inner" id="email" placeholder="Email" type="email"/>
+<label class="absolute left-4 -top-2.5 bg-background-dark px-1 text-sm text-slate-400 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-slate-500 peer-focus:-top-2.5 peer-focus:text-primary" for="email">Your Email</label>
+</div>
+</div>
+<div class="relative">
+<input class="peer w-full bg-background-dark border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-transparent focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-inner" id="subject" placeholder="Subject" type="text"/>
+<label class="absolute left-4 -top-2.5 bg-background-dark px-1 text-sm text-slate-400 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-slate-500 peer-focus:-top-2.5 peer-focus:text-primary" for="subject">Subject</label>
+</div>
+<div class="relative">
+<textarea class="peer w-full bg-background-dark border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-transparent focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all resize-none shadow-inner" id="message" placeholder="Message" rows="5"></textarea>
+<label class="absolute left-4 -top-2.5 bg-background-dark px-1 text-sm text-slate-400 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-slate-500 peer-focus:-top-2.5 peer-focus:text-primary" for="message">Message</label>
+</div>
+<button class="w-full bg-primary hover:bg-primary-hover text-background-dark font-bold py-4 rounded-xl transition-all shadow-lg shadow-primary/20 hover:shadow-primary/40 transform hover:-translate-y-1" type="button">
+                        Send Message
+                    </button>
+</form>
+</div>
+</div>
+</div>
+</section>
+<footer class="bg-surface-darker py-8 border-t border-slate-800">
+<div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex items-center gap-2 text-white">
+<span class="material-symbols-outlined text-primary">code</span>
+<span class="font-bold text-lg">DevPortfolio</span>
+</div>
+<p class="text-slate-500 text-sm">
+            © 2023 DevPortfolio. All rights reserved. Designed with passion.
+        </p>
+<a class="fixed bottom-8 right-8 z-40 bg-primary text-background-dark p-3 rounded-full shadow-lg shadow-primary/30 hover:bg-white transition-all transform hover:-translate-y-1" href="#home">
+<span class="material-symbols-outlined">arrow_upward</span>
+</a>
+</div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        centeredSlides: true,
+        speed: 500,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        breakpoints: {
+            640: {
+                slidesPerView: 1,
+                spaceBetween: 30,
+            },
+            768: {
+                slidesPerView: 2,
+                spaceBetween: 30,
+            },
+            1024: {
+                slidesPerView: 3,
+                spaceBetween: 30,
+            },
+        },
+    });
+</script>
+</body></html>
